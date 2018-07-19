@@ -1,0 +1,99 @@
+[debug] [2018-06-20T16:08:58.842Z] ----------------------------------------------------------------------
+[debug] [2018-06-20T16:08:58.845Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Etzio Audietaure\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase deploy --only functions
+[debug] [2018-06-20T16:08:58.845Z] CLI Version:   3.18.6
+[debug] [2018-06-20T16:08:58.845Z] Platform:      win32
+[debug] [2018-06-20T16:08:58.845Z] Node Version:  v10.4.1
+[debug] [2018-06-20T16:08:58.847Z] Time:          Wed Jun 20 2018 21:38:58 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:08:58.847Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-06-20T16:08:58.860Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-06-20T16:08:58.861Z] > authorizing via signed-in user
+[debug] [2018-06-20T16:08:58.863Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/meetups-e7599  
+  
+ Wed Jun 20 2018 21:38:58 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:00.781Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-20T16:09:00.782Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/meetups-e7599/tokens  
+  
+ Wed Jun 20 2018 21:39:00 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:02.373Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'meetups-e7599'...
+[info] 
+[info] i  deploying functions
+[debug] [2018-06-20T16:09:08.611Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "~5.12.1",
+    "firebase-functions": "^1.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "eslint-plugin-promise": "^3.6.0"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2018-06-20T16:09:08.612Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/meetups-e7599?view=CONSUMER_VIEW  
+  
+ Wed Jun 20 2018 21:39:08 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:08.613Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/meetups-e7599?view=CONSUMER_VIEW  
+  
+ Wed Jun 20 2018 21:39:08 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:11.337Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-20T16:09:11.513Z] <<< HTTP RESPONSE 200
+[info] +  functions: all necessary APIs are enabled
+[debug] [2018-06-20T16:09:11.514Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/meetups-e7599  
+  
+ Wed Jun 20 2018 21:39:11 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:13.894Z] <<< HTTP RESPONSE 200
+[debug] [2018-06-20T16:09:13.894Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/351354889583:getServerAppConfig  
+  
+ Wed Jun 20 2018 21:39:13 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:15.172Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2018-06-20T16:09:15.174Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/meetups-e7599/configs  
+  
+ Wed Jun 20 2018 21:39:15 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:16.139Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (50.71 KB) for uploading
+[debug] [2018-06-20T16:09:16.709Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/meetups-e7599/locations/us-central1/functions:generateUploadUrl  
+  
+ Wed Jun 20 2018 21:39:16 GMT+0530 (India Standard Time)
+[debug] [2018-06-20T16:09:47.634Z] <<< HTTP RESPONSE 503
+[debug] [2018-06-20T16:09:47.635Z] <<< HTTP RESPONSE BODY {
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+
+[debug] [2018-06-20T16:09:47.637Z] TypeError: Cannot create property 'error' on string '{
+  "error": {
+    "code": 503,
+    "message": "The service is currently unavailable.",
+    "status": "UNAVAILABLE"
+  }
+}
+'
+    at module.exports (C:\Users\Etzio Audietaure\AppData\Roaming\npm\node_modules\firebase-tools\lib\responseToError.js:11:16)
+    at Request._callback (C:\Users\Etzio Audietaure\AppData\Roaming\npm\node_modules\firebase-tools\lib\api.js:47:25)
+    at Request.self.callback (C:\Users\Etzio Audietaure\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:185:22)
+    at Request.emit (events.js:182:13)
+    at Request.EventEmitter.emit (domain.js:442:20)
+    at Request.<anonymous> (C:\Users\Etzio Audietaure\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1157:10)
+    at Request.emit (events.js:182:13)
+    at Request.EventEmitter.emit (domain.js:442:20)
+    at IncomingMessage.<anonymous> (C:\Users\Etzio Audietaure\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\request\request.js:1079:12)
+    at Object.onceWrapper (events.js:273:13)
+[error] 
+[error] Error: An unexpected error has occurred.
