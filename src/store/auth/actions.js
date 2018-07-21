@@ -97,5 +97,19 @@ export default {
         reject(error)
       })
     })
+  },
+  updateUserProfile: async function ({
+    commit
+  }, payload) {
+    console.log('called updateUserProfile: ', payload)
+    var user = firebase.auth().currentUser
+    return user.updateProfile({
+      displayName: payload.displayName,
+      photoURL: payload.photoUrl
+    }).then(function () {
+      return user.updateEmail(payload.email)
+    }).catch(function (error) {
+      return error
+    })
   }
 }

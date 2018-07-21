@@ -28,7 +28,12 @@ import {
   VBadge,
   VDivider,
   VTabs,
-  VDialog
+  VDialog,
+  VDatePicker,
+  VTimePicker,
+  VSnackbar,
+  VProgressCircular,
+  VSelect
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 import 'vuetify/dist/vuetify.min.css'
@@ -77,7 +82,12 @@ Vue.use(Vuetify, {
     VBadge,
     VDivider,
     VTabs,
-    VDialog
+    VDialog,
+    VDatePicker,
+    VTimePicker,
+    VSnackbar,
+    VProgressCircular,
+    VSelect
   }
   // theme: {
   //   primary: '#ee44aa',

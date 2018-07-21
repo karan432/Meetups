@@ -109,7 +109,7 @@
           :to="item.link"
           >
           <small>
-            <v-icon left>{{ item.icon }}</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
             {{ item.title }}
           </small>
         </v-btn>
@@ -133,8 +133,8 @@
         <v-btn icon slot="activator">
           <v-avatar class="white" size="32">
             <img 
-              v-if="user.photoUrl"
-              :src="user.photoUrl"
+              v-if="user.photoURL"
+              :src="user.photoURL"
             >
             <v-icon 
               v-else
@@ -149,8 +149,8 @@
             <v-list-tile-avatar>
               <v-avatar class="primary" size="48px">
                 <img 
-                  v-if="user.photoUrl"
-                  :src="user.photoUrl"
+                  v-if="user.photoURL"
+                  :src="user.photoURL"
                 >
                 <v-icon 
                   v-else
@@ -166,7 +166,9 @@
             </v-list-tile-content>
           </v-list-tile>
           <v-divider></v-divider>
-          <v-list-tile key="profile">
+          <v-list-tile 
+            key="profile"
+            :to="{name: 'profile'}">
             <v-list-tile-action>
               <v-icon>person</v-icon>
             </v-list-tile-action>
@@ -232,7 +234,7 @@
             <v-icon>data_usage</v-icon>
           </v-list-tile-action>
           <v-list-tile-title>
-            DB overloaded 80%
+            80% increase in popularity
           </v-list-tile-title>
         </v-list-tile>
       </v-list>

@@ -11,7 +11,7 @@
         right
         small
         slot="activator"
-        @click="showCreateEditDialog"
+        @click="showCreateEditDialog('Create')"
       >
         <v-icon>add</v-icon>
       </v-btn>
@@ -19,6 +19,10 @@
     </v-tooltip>
     <createEditMeetup
       :dialog="createEditDialog"
+      :mode="createEditDialogMode"
+      :loading="loading"
+      v-on:updateMeetup="updateMeetup"
+      v-on:createMeetup="createMeetup"
       v-on:close="closeCreateEditDialog"
     >
     </createEditMeetup>
@@ -27,15 +31,38 @@
 
 <script>
 import createEditMeetup from '@/components/meetups/createEditMeetup'
+import { mapActions } from 'vuex'
 export default {
   name: 'myMeetups',
   data () {
     return {
-      createEditDialog: false
+      createEditDialog: false,
+      createEditDialogMode: 'Create',
+      loading: false
     }
   },
   methods: {
-    showCreateEditDialog () {
+    ...mapActions([
+      'createNewMeetup'
+    ]),
+    updateMeetup (meetup) {
+      console.log('updateMeetup: ', meetup)
+    },
+    createMeetup (meetup) {
+      console.log('createMeetup: ', meetup)
+      this.loading = true
+      this.createNewMeetup(meetup).then(res => {
+        alert('Meetup was successfully created.')
+        this.closeCreateEditDialog()
+      }).catch(error => {
+        alert('Failed to create meetup, ' + error)
+      }).then(() => {
+        this.loading = false
+      })
+    },
+    showCreateEditDialog (mode) {
+      // console.log('dialog mode: ', mode)
+      this.createEditDialogMode = mode === 'Edit' ? 'Edit' : 'Create'
       this.createEditDialog = true
     },
     closeCreateEditDialog () {
