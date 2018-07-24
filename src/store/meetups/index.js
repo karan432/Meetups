@@ -3,7 +3,9 @@ import getters from './getters'
 import mutations from './mutations'
 
 const state = {
-  coverPicProgress: 0
+  coverPicProgress: 0,
+  myMeetups: {},
+  meetups: {}
 }
 
 export default {

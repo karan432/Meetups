@@ -123,6 +123,16 @@ export default {
         this.redirect()
       }
     }
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log('beforeEnter to: ', to)
+    console.log('beforeEnter from: ', from)
+    next(vm => {
+      console.log('auth state: ', vm.$store.getters.isAuthenticated)
+      if (vm.$store.getters.isAuthenticated) {
+        next({name: 'home'})
+      }
+    })
   }
 }
 </script>

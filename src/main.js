@@ -33,7 +33,8 @@ import {
   VTimePicker,
   VSnackbar,
   VProgressCircular,
-  VSelect
+  VSelect,
+  VSwitch
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 import 'vuetify/dist/vuetify.min.css'
@@ -87,7 +88,8 @@ Vue.use(Vuetify, {
     VTimePicker,
     VSnackbar,
     VProgressCircular,
-    VSelect
+    VSelect,
+    VSwitch
   }
   // theme: {
   //   primary: '#ee44aa',

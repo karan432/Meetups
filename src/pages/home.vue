@@ -39,28 +39,13 @@
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
-                <v-flex xs12 sm6 md6 lg4 v-for="item in links" :key="item.id">
-                  <v-card>
-                    <v-card-media
-                      src=""
-                      height="125px"
-                      :class="item.color"
-                    >
-                    </v-card-media>
-                    <v-card-title primary-title>
-                      <div>
-                        <h3 class="headline mb-0">{{item.title}}</h3>
-                        <div>
-                          {{item.description}}
-                        </div>
-                      </div>
-                    </v-card-title>
-                    <v-card-actions>
-                      <v-btn flat color="primary" class="learn-more-btn">Learn more</v-btn>
-                      <v-spacer></v-spacer>
-                      <v-btn flat color="primary">Get started</v-btn>
-                    </v-card-actions>
-                  </v-card>
+                <v-flex xs12 sm6 md6 lg4 v-for="meetup in allMeetups" :key="meetup.id">
+                  <meetupCard
+                    :meetup="meetup"
+                    @click.native="onShowDetails(meetup)"
+                    style="cursor: pointer"
+                  >
+                  </meetupCard>
                 </v-flex>
               </v-layout>
               <!-- <v-layout row wrap>
@@ -78,7 +63,12 @@
         </v-flex>
       </v-layout>
     </v-container>
-
+    <meetupDetails
+      :dialog="meetupDetailsDialog"
+      v-on:close="closeMeetupDetails"
+      :meetup="meetup"
+    >
+    </meetupDetails>
     <v-footer height="auto">
       <v-card
         flat
@@ -109,46 +99,50 @@
 </template>
 
 <script>
-import depthCard from '@/components/shared/depthCard'
+// import depthCard from '@/components/shared/depthCard'
+import meetupCard from '@/components/meetups/meetupCard'
+import meetupDetails from '@/components/meetups/meetupDetails'
+
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'home',
+  computed: {
+    ...mapGetters({
+      allMeetups: 'getMeetups'
+    }),
+    totalMeetups () {
+      return Object.keys(this.allMeetups).length
+    }
+  },
   data () {
     return {
       icons: ['fab fa-facebook', 'fab fa-twitter', 'fab fa-google-plus', 'fab fa-linkedin', 'fab fa-instagram'],
-      links: [
-        {
-          id: '1',
-          title: 'Meetup1',
-          description:
-            'meetup one.',
-          color: 'orange'
-        },
-        {
-          id: '2',
-          title: 'Meetup2',
-          description:
-            'meetup two',
-          color: 'teal'
-        },
-        {
-          id: '3',
-          title: 'Meetup3',
-          description:
-            'meetup three',
-          color: 'blue'
-        },
-        {
-          id: '4',
-          title: 'Meetup4',
-          description:
-            'meetup four',
-          color: 'purple'
-        }
-      ]
+      meetupDetailsDialog: false,
+      meetup: {}
+    }
+  },
+  methods: {
+    ...mapActions([
+      'fetchAllMeetups'
+    ]),
+    onShowDetails (meetup) {
+      console.log('called showDetails for: ', meetup)
+      this.meetup = meetup
+      this.meetupDetailsDialog = true
+    },
+    closeMeetupDetails () {
+      this.meetupDetailsDialog = false
     }
   },
   components: {
-    depthCard
+    meetupCard,
+    meetupDetails
+  },
+  created () {
+    this.fetchAllMeetups().then(res => {
+    }).catch(error => {
+      alert('Could not fetch meetups, ' + error)
+    })
   }
 }
 </script>

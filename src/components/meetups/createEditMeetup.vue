@@ -11,7 +11,7 @@
         <v-btn icon @click.native="onClose" dark>
           <v-icon>close</v-icon>
         </v-btn>
-        <v-toolbar-title>Create Meetups</v-toolbar-title>
+        <v-toolbar-title>Create Meetup</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
       <v-container style="margin-top: 50px">
@@ -19,8 +19,8 @@
           <v-flex xs12 sm8 md6>
             <v-card elevation-12>
               <v-card-media
-                v-if="coverPicURL"
-                :src="coverPicURL"
+                v-if="meetup.coverPicURL"
+                :src="meetup.coverPicURL"
                 height="200px"
               >
               </v-card-media>
@@ -32,7 +32,7 @@
                     label="Title"
                     id="title"
                     prepend-icon="title"
-                    v-model="title"
+                    v-model="meetup.title"
                     type="text"
                     required
                     ></v-text-field>
@@ -70,7 +70,7 @@
                       label="Category"
                       id="description"
                       :items="categories"
-                      v-model="category"
+                      v-model="meetup.category"
                       prepend-icon="category"
                       required
                       autocomplete
@@ -85,7 +85,7 @@
                     label="Description"
                     id="description"
                     prepend-icon="description"
-                    v-model="description"
+                    v-model="meetup.description"
                     type="text"
                     multi-line
                     required
@@ -99,7 +99,7 @@
                     label="Location"
                     id="location"
                     prepend-icon="location_on"
-                    v-model="location"
+                    v-model="meetup.location"
                     type="text"
                     required
                     ></v-text-field>
@@ -112,7 +112,7 @@
                       :close-on-content-click="false"
                       v-model="dateDialog"
                       :nudge-right="40"
-                      :return-value.sync="date"
+                      :return-value.sync="meetup.date"
                       lazy
                       transition="scale-transition"
                       offset-y
@@ -121,13 +121,13 @@
                     >
                       <v-text-field
                         slot="activator"
-                        v-model="date"
+                        v-model="meetup.date"
                         label="Date"
                         prepend-icon="event"
                         readonly
                         required
                       ></v-text-field>
-                      <v-date-picker v-model="date" @input="$refs.dateDialog.save(date)"></v-date-picker>
+                      <v-date-picker v-model="meetup.date" @input="$refs.dateDialog.save(meetup.date)"></v-date-picker>
                     </v-menu>
                   </v-flex>
                   <v-flex xs12 sm6>
@@ -136,7 +136,7 @@
                       :close-on-content-click="false"
                       v-model="timeDialog"
                       :nudge-right="40"
-                      :return-value.sync="time"
+                      :return-value.sync="meetup.time"
                       lazy
                       transition="scale-transition"
                       offset-y
@@ -145,7 +145,7 @@
                       min-width="290px">
                       <v-text-field
                         slot="activator"
-                        v-model="time"
+                        v-model="meetup.time"
                         label="Time"
                         prepend-icon="access_time"
                         readonly
@@ -153,9 +153,9 @@
                       ></v-text-field>
                       <v-time-picker
                         v-if="timeDialog"
-                        v-model="time"
+                        v-model="meetup.time"
                         format="24hr"
-                        @change="$refs.timeDialog.save(time)"
+                        @change="$refs.timeDialog.save(meetup.time)"
                       ></v-time-picker>
                     </v-menu>
                   </v-flex>
@@ -206,6 +206,20 @@ export default {
       default () {
         return false
       }
+    },
+    meetup: {
+      type: Object,
+      default () {
+        return {
+          title: '',
+          coverPicURL: '',
+          description: '',
+          date: null,
+          time: null,
+          location: '',
+          category: ''
+        }
+      }
     }
   },
   computed: {
@@ -216,7 +230,7 @@ export default {
       return this.mode === 'Edit' ? 'Update' : 'Create'
     },
     incomplete () {
-      if (this.title && this.description && this.date && this.time && this.location && this.category) {
+      if (this.meetup.title && this.meetup.description && this.meetup.date && this.meetup.time && this.meetup.location && this.meetup.category) {
         return false
       } else {
         return true
@@ -226,13 +240,13 @@ export default {
   data () {
     return {
       disabled: false,
-      title: '',
-      coverPicURL: '',
-      description: '',
-      date: null,
-      time: null,
-      location: '',
-      category: '',
+      // title: '',
+      // coverPicURL: '',
+      // description: '',
+      // date: null,
+      // time: null,
+      // location: '',
+      // category: '',
       dateDialog: false,
       timeDialog: false,
       uploadProgress: 0,
@@ -257,28 +271,28 @@ export default {
       'uploadMeetupCover'
     ]),
     onSubmit () {
-      var meetup = {
-        title: this.title,
-        location: this.location,
-        description: this.description,
-        date: this.date,
-        time: this.time,
-        coverPicURL: this.coverPicURL,
-        category: this.category
-      }
+      // var meetup = {
+      //   title: this.title,
+      //   location: this.location,
+      //   description: this.description,
+      //   date: this.date,
+      //   time: this.time,
+      //   coverPicURL: this.coverPicURL,
+      //   category: this.category
+      // }
       // console.log('mode: ', this.mode)
       // console.log('meetup: ', meetup)
       if (this.mode === 'Edit') {
-        this.$emit('updateMeetup', meetup)
+        this.$emit('updateMeetup', this.meetup)
       } else {
-        this.$emit('createMeetup', meetup)
+        this.$emit('createMeetup', this.meetup)
       }
     },
     uploadCover (file) {
       console.log('called uploadCover: ', file)
       const fileReader = new FileReader()
       fileReader.addEventListener('load', () => {
-        this.coverPicURL = fileReader.result
+        this.meetup.coverPicURL = fileReader.result
       })
       fileReader.readAsDataURL(file)
       // this.uploadMeetupCover(file)
@@ -326,7 +340,7 @@ export default {
           // Upload completed successfully, now we can get the download URL
           uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
             console.log('downloadURL: ', downloadURL)
-            myApp.coverPicURL = downloadURL
+            myApp.meetup.coverPicURL = downloadURL
           })
         }
       )

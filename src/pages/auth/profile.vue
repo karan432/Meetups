@@ -135,7 +135,7 @@ export default {
       }
       this.loading = true
       this.updateUserProfile(profile).then(res => {
-        console.log('profile updated successfully.')
+        // console.log('profile updated successfully.')
         this.autoSignIn()
         this.redirect()
       }).catch(error => {
@@ -148,10 +148,10 @@ export default {
       this.$router.push({name: 'home'})
     },
     uploadProfilePic (file) {
-      console.log('called uploadProfilePic: ', file)
+      // console.log('called uploadProfilePic: ', file)
       const fileReader = new FileReader()
       fileReader.addEventListener('load', () => {
-        console.log('base64: ', fileReader.result)
+        // console.log('base64: ', fileReader.result)
         this.photoURL = fileReader.result
       })
       fileReader.readAsDataURL(file)
@@ -169,7 +169,7 @@ export default {
           var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           myApp.showUploadProgress = true
           myApp.uploadProgress = Math.floor(progress)
-          console.log('Upload is ' + progress + '% done')
+          // console.log('Upload is ' + progress + '% done')
           switch (snapshot.state) {
             case firebase.storage.TaskState.PAUSED: // or 'paused'
               console.log('Upload is paused')
@@ -206,13 +206,22 @@ export default {
     }
   },
   created () {
-    console.log('called created!!')
     this.displayName = this.user.displayName
     this.photoURL = this.user.photoURL
     this.email = this.user.email
   },
   components: {
     FileUpload
+  },
+  beforeRouteEnter (to, from, next) {
+    // console.log('beforeEnter to: ', to)
+    // console.log('beforeEnter from: ', from)
+    next(vm => {
+      // console.log('auth state: ', vm.$store.getters.isAuthenticated)
+      if (!vm.$store.getters.isAuthenticated) {
+        next({name: 'auth'})
+      }
+    })
   }
 }
 </script>
