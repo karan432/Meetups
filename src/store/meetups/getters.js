@@ -7,5 +7,8 @@ export default {
   },
   getMeetups (state) {
     return JSON.parse(JSON.stringify(state.meetups))
+  },
+  getMeetupCategories (state) {
+    return state.categories
   }
 }

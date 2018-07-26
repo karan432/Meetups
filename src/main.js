@@ -34,7 +34,8 @@ import {
   VSnackbar,
   VProgressCircular,
   VSelect,
-  VSwitch
+  VSwitch,
+  VCarousel
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 import 'vuetify/dist/vuetify.min.css'
@@ -89,7 +90,8 @@ Vue.use(Vuetify, {
     VSnackbar,
     VProgressCircular,
     VSelect,
-    VSwitch
+    VSwitch,
+    VCarousel
   }
   // theme: {
   //   primary: '#ee44aa',

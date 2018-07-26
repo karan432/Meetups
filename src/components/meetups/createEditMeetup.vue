@@ -224,7 +224,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      user: 'getUser'
+      user: 'getUser',
+      categories: 'getMeetupCategories'
     }),
     submitBtnText () {
       return this.mode === 'Edit' ? 'Update' : 'Create'
@@ -250,20 +251,7 @@ export default {
       dateDialog: false,
       timeDialog: false,
       uploadProgress: 0,
-      showUploadProgress: false,
-      categories: [
-        'Sports & Fitness',
-        'Health & Wellness',
-        'Technology',
-        'Outdoor & Adventure',
-        'Music',
-        'Spirituality',
-        'Fashion & Beauty',
-        'Arts',
-        'Film',
-        'Writing',
-        'Other'
-      ]
+      showUploadProgress: false
     }
   },
   methods: {

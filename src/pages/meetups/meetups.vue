@@ -5,6 +5,11 @@
     >
       No Meetups at the moment...
     </h3>
+    <v-layout row>
+      <v-flex xs12 sm4 md3 lg3>
+
+      </v-flex>
+    </v-layout>
     <v-layout row wrap>
       <v-flex xs12 sm4 md3 lg3 v-for="meetup in meetups" :key="meetup.id">
         <meetupCard
@@ -25,7 +30,8 @@ export default {
   name: 'meetups',
   computed: {
     ...mapGetters({
-      meetups: 'getMeetups'
+      meetups: 'getMeetups',
+      categories: 'getMeetupCategories'
     }),
     totalMeetups () {
       return Object.keys(this.meetups).length

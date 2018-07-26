@@ -1,31 +1,69 @@
 <template>
   <div>
+    <v-layout row>
+      <v-flex xs12>
+        <v-carousel>
+          <v-carousel-item 
+            v-for="(meetup, index) in featuredMeetups" 
+            :key="index"
+            :src="meetup.coverPicURL"
+            @click.native="onShowDetails(meetup)"
+            style="cursor: pointer"
+          >
+            <!-- <div class="title">
+              Welcome to Meetups
+            </div> -->
+            <v-container fill-height>
+              <v-layout align-center>
+                <v-flex text-xs-center>
+                  <h3 class="display-1 white--text">Welcome to Meetups</h3>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-carousel-item>
+        </v-carousel>
+      </v-flex>
+      <!-- <v-flex xs12>
+        <carousel 
+          :per-page="1"
+          :autoplay="true"
+          :navigationEnabled="true"
+        >
+          <slide v-for="(meetup, index) in featuredMeetups" :key="index">
+            <v-card>
+              <v-card-media
+                :src="meetup.coverPicURL"
+                height="500px"
+                class="primary"
+              >
+                <v-container
+                  fill-height
+                  fluid
+                  pa-2
+                >
+                  <v-layout fill-height justify-center align-center>
+                    <v-flex xs12 flexbox style="text-align: center;">
+                      <h1 class="headline white--text">Welcome to Meetups</h1>
+                    </v-flex>
+                  </v-layout>
+                </v-container>
+              </v-card-media>
+            </v-card>
+          </slide>
+        </carousel>
+      </v-flex> -->
+    </v-layout>
     <v-toolbar
       dense
       color="primary"
       dark
       extended
-      extension-height="300"
       flat
     >
-      <v-toolbar-title class="mx-auto" slot="extension">
+      <!-- <v-toolbar-title class="mx-auto" slot="extension">
         <span>Welcome to Meetups</span>
         <h2>Meet like minded people.</h2>
-        <!-- <v-layout row>
-          <v-flex wrap>
-            <v-btn outline large fab color="white" class="outine-2">
-              <i class="fab fa-vuejs fa-3x"></i>
-              <v-icon large>mdi-map-marker-circle</v-icon>
-            </v-btn>
-          </v-flex>
-          <v-flex wrap>
-            <v-btn outline large fab color="white" class="outine-2">
-              <i class="fab fa-node fa-3x"></i>
-              <v-icon large>add_circle_outline</v-icon>
-            </v-btn>
-          </v-flex>
-        </v-layout> -->
-      </v-toolbar-title>
+      </v-toolbar-title> -->
     </v-toolbar>
 
     <v-container>
@@ -39,7 +77,7 @@
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
-                <v-flex xs12 sm6 md6 lg4 v-for="meetup in allMeetups" :key="meetup.id">
+                <v-flex xs12 sm6 md6 lg4 v-for="meetup in featuredMeetups" :key="meetup.id">
                   <meetupCard
                     :meetup="meetup"
                     @click.native="onShowDetails(meetup)"
@@ -48,16 +86,6 @@
                   </meetupCard>
                 </v-flex>
               </v-layout>
-              <!-- <v-layout row wrap>
-                <v-flex xs12 sm6 md6 lg4>
-                  <depthCard
-                    data-image="https://images.unsplash.com/photo-1479660656269-197ebb83b540?dpr=2&auto=compress,format&fit=crop&w=1199&h=798&q=80&cs=tinysrgb&crop="
-                  >
-                    <h1 slot="header">Canyons</h1>
-                    <p slot="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                  </depthCard>
-                </v-flex>
-              </v-layout> -->
             </v-container>
           </v-card>
         </v-flex>
@@ -102,8 +130,9 @@
 // import depthCard from '@/components/shared/depthCard'
 import meetupCard from '@/components/meetups/meetupCard'
 import meetupDetails from '@/components/meetups/meetupDetails'
-
+import { Carousel, Slide } from 'vue-carousel'
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'home',
   computed: {
@@ -112,13 +141,40 @@ export default {
     }),
     totalMeetups () {
       return Object.keys(this.allMeetups).length
+    },
+    featuredMeetups () {
+      var keys = Object.keys(this.allMeetups)
+      if (keys.length < 6) {
+        return keys.map((key) => {
+          return this.allMeetups[key]
+        })
+      } else {
+        var featured = []
+        for (var i = 0; i < 6; i++) {
+          featured.push(this.allMeetups[keys[i]])
+        }
+        return featured
+      }
     }
   },
   data () {
     return {
       icons: ['fab fa-facebook', 'fab fa-twitter', 'fab fa-google-plus', 'fab fa-linkedin', 'fab fa-instagram'],
       meetupDetailsDialog: false,
-      meetup: {}
+      meetup: {
+        title: '',
+        coverPicURL: '',
+        description: '',
+        date: null,
+        time: null,
+        location: '',
+        category: '',
+        user: {
+          photoURL: '',
+          displayName: '',
+          email: ''
+        }
+      }
     }
   },
   methods: {
@@ -136,7 +192,9 @@ export default {
   },
   components: {
     meetupCard,
-    meetupDetails
+    meetupDetails,
+    Carousel,
+    Slide
   },
   created () {
     this.fetchAllMeetups().then(res => {
@@ -159,5 +217,14 @@ export default {
 .learn-more-btn {
   text-transform: initial;
   text-decoration: underline;
+}
+
+.title {
+  position: absolute;
+  bottom: 50px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 2em;
+  padding: 20px;
 }
 </style>
