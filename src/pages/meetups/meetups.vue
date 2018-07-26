@@ -20,11 +20,19 @@
         </meetupCard>
       </v-flex>
     </v-layout>
+    <meetupDetails
+      :dialog="meetupDetailsDialog"
+      v-on:close="closeMeetupDetails"
+      :meetup="meetup"
+    >
+    </meetupDetails>
   </v-container>
 </template>
 
 <script>
 import meetupCard from '@/components/meetups/meetupCard'
+import meetupDetails from '@/components/meetups/meetupDetails'
+
 import { mapGetters, mapActions } from 'vuex'
 export default {
   name: 'meetups',
@@ -39,6 +47,21 @@ export default {
   },
   data () {
     return {
+      meetupDetailsDialog: false,
+      meetup: {
+        title: '',
+        coverPicURL: '',
+        description: '',
+        date: null,
+        time: null,
+        location: '',
+        category: '',
+        user: {
+          photoURL: '',
+          displayName: '',
+          email: ''
+        }
+      }
     }
   },
   methods: {
@@ -47,10 +70,16 @@ export default {
     ]),
     onShowDetails (meetup) {
       console.log('called showDetails for: ', meetup)
+      this.meetup = meetup
+      this.meetupDetailsDialog = true
+    },
+    closeMeetupDetails () {
+      this.meetupDetailsDialog = false
     }
   },
   components: {
-    meetupCard
+    meetupCard,
+    meetupDetails
   },
   created () {
     this.fetchAllMeetups().then(res => {

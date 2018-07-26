@@ -9,6 +9,7 @@
       <v-flex xs12 sm4 md3 lg3 v-for="meetup in myMeetups" :key="meetup.id">
         <myMeetupCard
           :meetup="meetup"
+          v-on:onDelete="onDeleteMeetup"
           v-on:onEdit="onEdit"
         >
         </myMeetupCard>
@@ -77,7 +78,8 @@ export default {
     ...mapActions([
       'createNewMeetup',
       'updateExistingMeetup',
-      'fetchMyMeetups'
+      'fetchMyMeetups',
+      'deleteMeetup'
     ]),
     updateMeetup (meetup) {
       console.log('updateMeetup: ', meetup)
@@ -90,6 +92,15 @@ export default {
       }).then(() => {
         this.loading = false
       })
+    },
+    onDeleteMeetup (meetup) {
+      if (confirm(`Are you sure you want to delete: ${meetup.title}`)) {
+        this.deleteMeetup(meetup).then(res => {
+          alert('Meetup successfully deleted.')
+        }).catch(error => {
+          alert('Failed to delete meetup, ' + error)
+        })
+      }
     },
     createMeetup (meetup) {
       console.log('createMeetup: ', meetup)

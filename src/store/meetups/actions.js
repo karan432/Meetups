@@ -25,6 +25,11 @@ export default {
     let meetupsCollection = firebase.firestore().collection(`meetups`)
     return meetupsCollection.doc(meetup.id).set(meetup)
   },
+  deleteMeetup: async function ({
+    commit
+  }, meetup) {
+    return firebase.firestore().collection(`meetups`).doc(`${meetup.id}`).delete()
+  },
   fetchMyMeetups: async function ({
     getters,
     commit

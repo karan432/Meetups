@@ -27,7 +27,18 @@
       <v-list two-line class="pt-0">
         <v-list-tile>
           <v-list-tile-avatar>
-            <img :src="meetup.user.photoURL">
+            <v-avatar class="primary" size="32">
+              <img 
+                v-if="meetup.user.photoURL"            
+                :src="meetup.user.photoURL"
+              >
+              <v-icon 
+                v-else
+                dark
+              >
+                person
+              </v-icon>
+            </v-avatar>
           </v-list-tile-avatar>
           <v-list-tile-content>
             by <b>{{meetup.user.displayName}}</b>

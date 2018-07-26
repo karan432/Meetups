@@ -28,6 +28,12 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
+      <v-btn
+        flat 
+        color="red"
+        @click="onDelete">
+        DELETE
+      </v-btn>
       <v-btn 
         flat 
         color="primary"
@@ -52,6 +58,9 @@ export default {
   methods: {
     onEdit () {
       this.$emit('onEdit', Object.assign({}, this.meetup))
+    },
+    onDelete () {
+      this.$emit('onDelete', Object.assign({}, this.meetup))
     }
   },
   computed: {

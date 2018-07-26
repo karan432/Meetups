@@ -99,16 +99,18 @@
               v-for="(user) in goingUsers" >
               <v-list-tile :key="user.id">
                 <v-list-tile-avatar>
-                  <img 
-                    v-if="user.photoURL"
-                    :src="user.photoURL"
-                  >
-                  <v-icon 
-                    v-else
-                    dark
-                  >
-                    person
-                  </v-icon>
+                  <v-avatar class="primary" size="32">
+                    <img 
+                      v-if="user.photoURL"            
+                      :src="user.photoURL"
+                    >
+                    <v-icon 
+                      v-else
+                      dark
+                    >
+                      person
+                    </v-icon>
+                  </v-avatar>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                   <b>{{user.displayName}}</b>
