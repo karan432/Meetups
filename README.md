@@ -2,7 +2,7 @@
 
 > A pwa that allow users to hold meetups and also register for other meetups
 
-# demo
+Application URL:
 
 https://meetups-e7599.firebaseapp.com/
 
